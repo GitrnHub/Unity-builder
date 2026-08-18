@@ -6,6 +6,7 @@ public sealed class WanderWorld : MonoBehaviour
     {
         Shader shader = Shader.Find("Standard");
         if (shader == null) shader = Shader.Find("Universal Render Pipeline/Lit");
+        if (shader == null) shader = Shader.Find("Unlit/Color");
         Material material = new Material(shader);
         material.color = color;
         return material;
@@ -29,7 +30,7 @@ public sealed class WanderWorld : MonoBehaviour
         RenderSettings.fogDensity = 0.008f;
         RenderSettings.ambientLight = new Color(0.45f, 0.48f, 0.52f);
 
-        Camera camera = Camera.main;
+        Camera camera = Object.FindFirstObjectByType<Camera>();
         if (camera != null)
         {
             camera.clearFlags = CameraClearFlags.SolidColor;
