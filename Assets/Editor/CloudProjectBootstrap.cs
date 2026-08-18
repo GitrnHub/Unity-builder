@@ -32,7 +32,6 @@ public static class CloudProjectBootstrap
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             GameObject cameraObject = new GameObject("Main Camera");
-            cameraObject.tag = "MainCamera";
             Camera camera = cameraObject.AddComponent<Camera>();
             camera.fieldOfView = 70f;
             camera.nearClipPlane = 0.05f;
