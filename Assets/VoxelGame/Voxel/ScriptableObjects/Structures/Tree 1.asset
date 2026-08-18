@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f576e70fe119a4492e55d9dc36408b, type: 3}
+  m_Name: Tree 1
+  m_EditorClassIdentifier: 
+  structureTag: tree_1
+  offset: {x: 2, y: 0, z: 2}
+  structure:
+    elements:
+    - offset: {x: -4, y: 3, z: -3}
+      voxel: 52
+    - offset: {x: -4, y: 3, z: -2}
+      voxel: 52
+    - offset: {x: -4, y: 3, z: -1}
+      voxel: 52
+    - offset: {x: -4, y: 3, z: 0}
+      voxel: 52
+    - offset: {x: -4, y: 4, z: -4}
+      voxel: 52
+    - offset: {x: -4, y: 4, z: -3}
+      voxel: 52
+    - offset: {x: -4, y: 4, z: -2}
+      voxel: 52
+    - offset: {x: -4, y: 4, z: -1}
+      voxel: 52
+    - offset: {x: -3, y: 3, z: -4}
+      voxel: 52
+    - offset: {x: -3, y: 3, z: -3}
+      voxel: 52
+    - offset: {x: -3, y: 3, z: -2}
+      voxel: 52
+    - offset: {x: -3, y: 3, z: -1}
+      voxel: 52
+    - offset: {x: -3, y: 3, z: 0}
+      voxel: 52
+    - offset: {x: -3, y: 4, z: -4}
+      voxel: 52
+    - offset: {x: -3, y: 4, z: -3}
+      voxel: 52
+    - offset: {x: -3, y: 4, z: -2}
+      voxel: 52
+    - offset: {x: -3, y: 4, z: -1}
+      voxel: 52
+    - offset: {x: -3, y: 4, z: 0}
+      voxel: 52
+    - offset: {x: -3, y: 5, z: -3}
+      voxel: 52
+    - offset: {x: -3, y: 5, z: -2}
+      voxel: 52
+    - offset: {x: -3, y: 5, z: -1}
+      voxel: 52
+    - offset: {x: -3, y: 6, z: -2}
+      voxel: 52
+    - offset: {x: -2, y: 0, z: -2}
+      voxel: 5
+    - offset: {x: -2, y: 1, z: -2}
+      voxel: 5
+    - offset: {x: -2, y: 2, z: -2}
+      voxel: 5
+    - offset: {x: -2, y: 3, z: -4}
+      voxel: 52
+    - offset: {x: -2, y: 3, z: -3}
+      voxel: 52
+    - offset: {x: -2, y: 3, z: -2}
+      voxel: 5
+    - offset: {x: -2, y: 3, z: -1}
+      voxel: 52
+    - offset: {x: -2, y: 3, z: 0}
+      voxel: 52
+    - offset: {x: -2, y: 4, z: -4}
+      voxel: 52
+    - offset: {x: -2, y: 4, z: -3}
+      voxel: 52
+    - offset: {x: -2, y: 4, z: -2}
+      voxel: 5
+    - offset: {x: -2, y: 4, z: -1}
+      voxel: 52
+    - offset: {x: -2, y: 4, z: 0}
+      voxel: 52
+    - offset: {x: -2, y: 5, z: -3}
+      voxel: 52
+    - offset: {x: -2, y: 5, z: -2}
+      voxel: 5
+    - offset: {x: -2, y: 5, z: -1}
+      voxel: 52
+    - offset: {x: -2, y: 6, z: -3}
+      voxel: 52
+    - offset: {x: -2, y: 6, z: -2}
+      voxel: 52
+    - offset: {x: -2, y: 6, z: -1}
+      voxel: 52
+    - offset: {x: -1, y: 3, z: -4}
+      voxel: 52
+    - offset: {x: -1, y: 3, z: -3}
+      voxel: 52
+    - offset: {x: -1, y: 3, z: -2}
+      voxel: 52
+    - offset: {x: -1, y: 3, z: -1}
+      voxel: 52
+    - offset: {x: -1, y: 3, z: 0}
+      voxel: 52
+    - offset: {x: -1, y: 4, z: -4}
+      voxel: 52
+    - offset: {x: -1, y: 4, z: -3}
+      voxel: 52
+    - offset: {x: -1, y: 4, z: -2}
+      voxel: 52
+    - offset: {x: -1, y: 4, z: -1}
+      voxel: 52
+    - offset: {x: -1, y: 4, z: 0}
+      voxel: 52
+    - offset: {x: -1, y: 5, z: -3}
+      voxel: 52
+    - offset: {x: -1, y: 5, z: -2}
+      voxel: 52
+    - offset: {x: -1, y: 5, z: -1}
+      voxel: 52
+    - offset: {x: -1, y: 6, z: -2}
+      voxel: 52
+    - offset: {x: 0, y: 3, z: -3}
+      voxel: 52
+    - offset: {x: 0, y: 3, z: -2}
+      voxel: 52
+    - offset: {x: 0, y: 3, z: -1}
+      voxel: 52
+    - offset: {x: 0, y: 3, z: 0}
+      voxel: 52
+    - offset: {x: 0, y: 4, z: -4}
+      voxel: 52
+    - offset: {x: 0, y: 4, z: -3}
+      voxel: 52
+    - offset: {x: 0, y: 4, z: -2}
+      voxel: 52
+    - offset: {x: 0, y: 4, z: -1}
+      voxel: 52
+    - offset: {x: 0, y: 4, z: 0}
+      voxel: 52

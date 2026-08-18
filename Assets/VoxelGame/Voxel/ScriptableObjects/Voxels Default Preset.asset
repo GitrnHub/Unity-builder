@@ -1,0 +1,2831 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb9666d0391860428a8faa8c7a619a7, type: 3}
+  m_Name: Voxels Default Preset
+  m_EditorClassIdentifier: 
+  voxels:
+  - name: AIR
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 1
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: STONE
+    textureId: 1
+    textureIdBottom: 1
+    textureIdSide: 1
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0.4431373, g: 0.47450984, b: 0.42352945, a: 1}
+    sprite: {fileID: 1886114711, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: DIRT
+    textureId: 2
+    textureIdBottom: 2
+    textureIdSide: 2
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0.3803922, g: 0.35686275, b: 0.25882354, a: 1}
+    sprite: {fileID: -934420592, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: GRASS
+    textureId: 0
+    textureIdBottom: 2
+    textureIdSide: 3
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0.3803922, g: 0.35686275, b: 0.25882354, a: 1}
+    sprite: {fileID: 1077594969, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: PLANK
+    textureId: 4
+    textureIdBottom: 4
+    textureIdSide: 4
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0.48235297, g: 0.45098042, b: 0.3019608, a: 1}
+    sprite: {fileID: -1513587639, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: WOOD
+    textureId: 21
+    textureIdBottom: 21
+    textureIdSide: 20
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0.3529412, g: 0.34509805, b: 0.20784315, a: 1}
+    sprite: {fileID: 1740383534, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: DECOR_GRASS
+    textureId: 39
+    textureIdBottom: 39
+    textureIdSide: 39
+    isSolidForSame: 0
+    isEmpty: 1
+    isDecor: 1
+    isShapeX: 1
+    isTransp: 0
+    color: {r: 0.30980393, g: 0.38431376, b: 0.22352943, a: 1}
+    sprite: {fileID: -33299625, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: SAND
+    textureId: 18
+    textureIdBottom: 18
+    textureIdSide: 18
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0.6039216, g: 0.5882353, b: 0.4901961, a: 1}
+    sprite: {fileID: -1614063424, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: LEAVES
+    textureId: 52
+    textureIdBottom: 52
+    textureIdSide: 52
+    isSolidForSame: 1
+    isEmpty: 1
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0.30588236, g: 0.41960788, b: 0.19607845, a: 1}
+    sprite: {fileID: 1840018436, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: WATER
+    textureId: 205
+    textureIdBottom: 205
+    textureIdSide: 205
+    isSolidForSame: 1
+    isEmpty: 1
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 1
+    color: {r: 0.2509804, g: 0.3137255, b: 0.3529412, a: 1}
+    sprite: {fileID: -236131578, guid: ce4294d6e2bd030498595ab9f6d5cecc, type: 3}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}
+  - name: 
+    textureId: 0
+    textureIdBottom: 0
+    textureIdSide: 0
+    isSolidForSame: 0
+    isEmpty: 0
+    isDecor: 0
+    isShapeX: 0
+    isTransp: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sprite: {fileID: 0}

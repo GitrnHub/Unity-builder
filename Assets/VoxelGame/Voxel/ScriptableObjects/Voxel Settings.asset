@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa539720723b0b74db7d9f6f0746fbb4, type: 3}
+  m_Name: Voxel Settings
+  m_EditorClassIdentifier: 
+  generateOnlyInFrustum: 1
+  seed: 874891
+  targetFrameRate: 60
+  renderDistance: 12
+  renderScale: 1
+  chunksMaterial: {fileID: 2100000, guid: 4f5eb5291eade724196053438d603589, type: 2}
+  chunksTranspMaterial: {fileID: 2100000, guid: 380953990a38bc14eb62b62523c1bbf8,
+    type: 2}
+  urpAsset: {fileID: 11400000, guid: e1260c1148f6143b28bae5ace5e9c5d1, type: 2}
+  structuresSO:
+  - {fileID: 11400000, guid: 6f952847168cc7e4ebde9b014e80a29b, type: 2}
+  voxelPresetSO: {fileID: 11400000, guid: 827f14811fdcd95418355e4a3535b033, type: 2}
+  OnSettingsLoaded:
+    m_PersistentCalls:
+      m_Calls: []
