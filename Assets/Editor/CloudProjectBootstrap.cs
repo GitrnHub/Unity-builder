@@ -12,6 +12,7 @@ public static class CloudProjectBootstrap
 
     private const string UnlitSubTarget = "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget";
     private const string LitSubTarget = "UnityEditor.Rendering.Universal.ShaderGraph.UniversalLitSubTarget";
+    private const string VoxelSubTargetObjectId = "9ad4023d137a4c36b2747480779c0869";
 
     [InitializeOnLoadMethod]
     private static void PatchProjectOnEditorLoad()
@@ -58,7 +59,26 @@ public static class CloudProjectBootstrap
         if (!source.Contains(UnlitSubTarget))
             return false;
 
-        File.WriteAllText(path, source.Replace(UnlitSubTarget, LitSubTarget));
+        // The existing graph already contains BaseColor, Specular and Smoothness blocks.
+        // Switch the URP sub-target and serialize the Lit-specific settings explicitly.
+        string oldBlock =
+            "\"m_Type\": \"" + UnlitSubTarget + "\",\n" +
+            "    \"m_ObjectId\": \"" + VoxelSubTargetObjectId + "\"";
+        string newBlock =
+            "\"m_Type\": \"" + LitSubTarget + "\",\n" +
+            "    \"m_ObjectId\": \"" + VoxelSubTargetObjectId + "\",\n" +
+            "    \"m_WorkflowMode\": 1,\n" +
+            "    \"m_NormalDropOffSpace\": 0,\n" +
+            "    \"m_ClearCoat\": false";
+
+        string patched = source.Replace(oldBlock, newBlock);
+        if (patched == source)
+        {
+            // Fallback for a future Shader Graph formatting change.
+            patched = source.Replace(UnlitSubTarget, LitSubTarget);
+        }
+
+        File.WriteAllText(path, patched);
         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
         Debug.Log("[CloudProjectBootstrap] Enabled real URP lighting/shadow passes for " + path);
         return true;
@@ -110,6 +130,22 @@ public static class CloudProjectBootstrap
             feature.shaftShader = shader;
             AssetDatabase.AddObjectToAsset(feature, rendererData);
             rendererData.rendererFeatures.Add(feature);
+
+            // ScriptableRendererData keeps a parallel local-file-ID map. Populate it so
+            // the newly-created feature survives serialization into the player build.
+            if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(feature, out string _, out long localId))
+            {
+                SerializedObject serializedRenderer = new SerializedObject(rendererData);
+                SerializedProperty featureMap = serializedRenderer.FindProperty("m_RendererFeatureMap");
+                if (featureMap != null)
+                {
+                    int index = featureMap.arraySize;
+                    featureMap.InsertArrayElementAtIndex(index);
+                    featureMap.GetArrayElementAtIndex(index).longValue = localId;
+                    serializedRenderer.ApplyModifiedPropertiesWithoutUndo();
+                }
+            }
+
             Debug.Log("[CloudProjectBootstrap] Installed AI Screen-Space Sun Shafts renderer feature.");
         }
         else
@@ -119,5 +155,6 @@ public static class CloudProjectBootstrap
 
         EditorUtility.SetDirty(feature);
         EditorUtility.SetDirty(rendererData);
+        rendererData.SetDirty();
     }
 }
