@@ -2,6 +2,7 @@ using VoxelGame.Voxel;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace VoxelGame.Voxel
 {
@@ -32,6 +33,8 @@ namespace VoxelGame.Voxel
             meshFilter = gameObject.AddComponent<MeshFilter>();
             meshRenderer = gameObject.AddComponent<MeshRenderer>();
             meshRenderer.material = material;
+            meshRenderer.shadowCastingMode = ShadowCastingMode.On;
+            meshRenderer.receiveShadows = true;
             MeshData = new ChunkElementMeshData();
             meshFilter.sharedMesh = MeshData.mesh;
 
