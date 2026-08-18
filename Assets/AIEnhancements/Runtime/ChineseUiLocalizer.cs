@@ -32,7 +32,12 @@ public sealed class ChineseUiLocalizer : MonoBehaviour
         {"Forward", "前进"}, {"Backward", "后退"}, {"Left", "左"}, {"Right", "右"},
         {"Jump", "跳跃"}, {"Run", "奔跑"}, {"Sprint", "疾跑"}, {"Crouch", "蹲下"},
         {"Generating...", "正在生成..."}, {"Loading...", "正在加载..."},
-        {"Paused", "已暂停"}, {"Pause", "暂停"}, {"Game Over", "游戏结束"}
+        {"Paused", "已暂停"}, {"Pause", "暂停"}, {"Game Over", "游戏结束"},
+
+        // Graphy - Ultimate Stats Monitor.
+        {"avg", "平均"}, {"1%", "1%低帧"}, {"0.1%", "0.1%低帧"},
+        {"fps", "帧/秒"}, {"ms", "毫秒"},
+        {"reserved", "保留"}, {"allocated", "已分配"}, {"mono", "托管"}, {"ram", "内存"}
     };
 
     private Font legacyFont;
@@ -54,17 +59,17 @@ public sealed class ChineseUiLocalizer : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Start() => LocalizeAllLoadedScenes();
+    private void Start() => LocalizeEveryLoadedUiObject();
 
     private void Update()
     {
         if (Time.unscaledTime < nextScan) return;
-        nextScan = Time.unscaledTime + 0.75f;
-        LocalizeAllLoadedScenes();
+        nextScan = Time.unscaledTime + 0.5f;
+        LocalizeEveryLoadedUiObject();
     }
 
     private void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => LocalizeScene(scene);
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => LocalizeEveryLoadedUiObject();
 
     private void LoadFonts()
     {
@@ -84,34 +89,32 @@ public sealed class ChineseUiLocalizer : MonoBehaviour
         }
     }
 
-    private void LocalizeAllLoadedScenes()
+    private void LocalizeEveryLoadedUiObject()
     {
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        // Resources.FindObjectsOfTypeAll is intentional here. Graphy is kept in the
+        // DontDestroyOnLoad scene, so a scan limited to SceneManager scene roots misses it.
+        TMP_Text[] tmpTexts = Resources.FindObjectsOfTypeAll<TMP_Text>();
+        for (int i = 0; i < tmpTexts.Length; i++)
         {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (scene.isLoaded) LocalizeScene(scene);
+            if (!IsRuntimeObject(tmpTexts[i])) continue;
+            if (tmpFont != null && tmpTexts[i].font != tmpFont) tmpTexts[i].font = tmpFont;
+            tmpTexts[i].text = Translate(tmpTexts[i].text);
+        }
+
+        Text[] legacyTexts = Resources.FindObjectsOfTypeAll<Text>();
+        for (int i = 0; i < legacyTexts.Length; i++)
+        {
+            if (!IsRuntimeObject(legacyTexts[i])) continue;
+            if (legacyFont != null && legacyTexts[i].font != legacyFont) legacyTexts[i].font = legacyFont;
+            legacyTexts[i].text = Translate(legacyTexts[i].text);
         }
     }
 
-    private void LocalizeScene(Scene scene)
+    private static bool IsRuntimeObject(Component component)
     {
-        GameObject[] roots = scene.GetRootGameObjects();
-        for (int i = 0; i < roots.Length; i++)
-        {
-            TMP_Text[] tmpTexts = roots[i].GetComponentsInChildren<TMP_Text>(true);
-            for (int j = 0; j < tmpTexts.Length; j++)
-            {
-                if (tmpFont != null && tmpTexts[j].font != tmpFont) tmpTexts[j].font = tmpFont;
-                tmpTexts[j].text = Translate(tmpTexts[j].text);
-            }
-
-            Text[] legacyTexts = roots[i].GetComponentsInChildren<Text>(true);
-            for (int j = 0; j < legacyTexts.Length; j++)
-            {
-                if (legacyFont != null && legacyTexts[j].font != legacyFont) legacyTexts[j].font = legacyFont;
-                legacyTexts[j].text = Translate(legacyTexts[j].text);
-            }
-        }
+        if (component == null || component.gameObject == null) return false;
+        Scene scene = component.gameObject.scene;
+        return scene.IsValid() && scene.isLoaded;
     }
 
     private static string Translate(string value)
@@ -119,6 +122,9 @@ public sealed class ChineseUiLocalizer : MonoBehaviour
         if (string.IsNullOrWhiteSpace(value)) return value;
         string trimmed = value.Trim();
         if (!Translations.TryGetValue(trimmed, out string translated)) return value;
-        return value.Replace(trimmed, translated);
+
+        int start = value.IndexOf(trimmed, StringComparison.Ordinal);
+        if (start < 0) return translated;
+        return value.Substring(0, start) + translated + value.Substring(start + trimmed.Length);
     }
 }
