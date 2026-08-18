@@ -34,10 +34,11 @@ public sealed class ChineseUiLocalizer : MonoBehaviour
         {"Generating...", "正在生成..."}, {"Loading...", "正在加载..."},
         {"Paused", "已暂停"}, {"Pause", "暂停"}, {"Game Over", "游戏结束"},
 
-        // Graphy - Ultimate Stats Monitor.
-        {"avg", "平均"}, {"1%", "1%低帧"}, {"0.1%", "0.1%低帧"},
-        {"fps", "帧/秒"}, {"ms", "毫秒"},
-        {"reserved", "保留"}, {"allocated", "已分配"}, {"mono", "托管"}, {"ram", "内存"}
+        // Graphy - Ultimate Stats Monitor. Keep labels compact so the original
+        // narrow module layout does not overflow after switching to CJK glyphs.
+        {"avg", "均值"}, {"1%", "1%"}, {"0.1%", "0.1%"},
+        {"fps", "帧率"}, {"ms", "毫秒"},
+        {"reserved", "保留"}, {"allocated", "分配"}, {"mono", "托管"}, {"ram", "内存"}
     };
 
     private Font legacyFont;
