@@ -1,53 +1,55 @@
-using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[InitializeOnLoad]
 public static class CloudProjectBootstrap
 {
     private const string SceneFolder = "Assets/Scenes";
     private const string ScenePath = "Assets/Scenes/Main.unity";
 
-    static CloudProjectBootstrap()
-    {
-        EnsureScene();
-    }
-
     public static void PreExport()
     {
-        EnsureScene();
-    }
+        Debug.Log("[CloudProjectBootstrap] PreExport started.");
 
-    private static void EnsureScene()
-    {
-        if (EditorApplication.isPlayingOrWillChangePlaymode) return;
-
-        if (!Directory.Exists(SceneFolder))
-            Directory.CreateDirectory(SceneFolder);
-
-        if (!File.Exists(ScenePath))
+        if (!AssetDatabase.IsValidFolder(SceneFolder))
         {
-            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-
-            GameObject cameraObject = new GameObject("Main Camera");
-            Camera camera = cameraObject.AddComponent<Camera>();
-            camera.fieldOfView = 70f;
-            camera.nearClipPlane = 0.05f;
-            cameraObject.AddComponent<AudioListener>();
-            cameraObject.AddComponent<FreeFlyController>();
-
-            GameObject world = new GameObject("World");
-            world.AddComponent<WanderWorld>();
-
-            EditorSceneManager.SaveScene(scene, ScenePath);
-            AssetDatabase.SaveAssets();
+            AssetDatabase.CreateFolder("Assets", "Scenes");
         }
 
-        EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
+        // Create the build scene only at the documented pre-export hook. Doing this
+        // from InitializeOnLoad can run during domain reload/import and is fragile in CI.
+        Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+        GameObject cameraObject = new GameObject("Main Camera");
+        cameraObject.tag = "MainCamera";
+        Camera camera = cameraObject.AddComponent<Camera>();
+        camera.fieldOfView = 70f;
+        camera.nearClipPlane = 0.05f;
+        camera.farClipPlane = 350f;
+        cameraObject.AddComponent<AudioListener>();
+        cameraObject.AddComponent<FreeFlyController>();
+
+        GameObject world = new GameObject("World");
+        world.AddComponent<WanderWorld>();
+
+        if (!EditorSceneManager.SaveScene(scene, ScenePath))
+        {
+            throw new System.Exception("Failed to save generated scene: " + ScenePath);
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        EditorBuildSettings.scenes = new[]
+        {
+            new EditorBuildSettingsScene(ScenePath, true)
+        };
+
         PlayerSettings.companyName = "VibeCloud";
         PlayerSettings.productName = "Cloud Wander Demo";
         PlayerSettings.bundleVersion = "0.1.0";
+
+        Debug.Log("[CloudProjectBootstrap] Scene generated and added to build settings: " + ScenePath);
     }
 }
