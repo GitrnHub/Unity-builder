@@ -26,7 +26,7 @@ public sealed class CinematicLightingBootstrap : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ApplyDelayed());
-        InvokeRepeating(nameof(RefreshDynamicScene), 2f, 2f);
+        InvokeRepeating(nameof(RefreshDynamicScene), 1.5f, 1.5f);
     }
 
     private void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -50,6 +50,12 @@ public sealed class CinematicLightingBootstrap : MonoBehaviour
                 break;
             }
         }
+
+        QualitySettings.shadows = ShadowQuality.All;
+        QualitySettings.shadowResolution = ShadowResolution.VeryHigh;
+        QualitySettings.shadowDistance = 150f;
+        QualitySettings.shadowCascades = 4;
+        QualitySettings.antiAliasing = 4;
     }
 
     private static void RefreshDynamicScene()
@@ -59,7 +65,12 @@ public sealed class CinematicLightingBootstrap : MonoBehaviour
         {
             cameras[i].allowHDR = true;
             UniversalAdditionalCameraData data = cameras[i].GetComponent<UniversalAdditionalCameraData>();
-            if (data != null) data.renderPostProcessing = true;
+            if (data != null)
+            {
+                data.renderPostProcessing = true;
+                data.requiresDepthTexture = true;
+                data.requiresColorTexture = true;
+            }
         }
 
         Light[] lights = FindObjectsOfType<Light>(true);
@@ -74,20 +85,26 @@ public sealed class CinematicLightingBootstrap : MonoBehaviour
         {
             RenderSettings.sun = sun;
             sun.shadows = LightShadows.Soft;
-            sun.shadowStrength = 0.92f;
+            sun.shadowStrength = 0.96f;
             sun.shadowResolution = LightShadowResolution.VeryHigh;
-            sun.shadowBias = 0.035f;
-            sun.shadowNormalBias = 0.25f;
-            if (sun.intensity < 1.05f) sun.intensity = 1.05f;
+            sun.shadowBias = 0.025f;
+            sun.shadowNormalBias = 0.20f;
+            sun.useColorTemperature = true;
+            sun.colorTemperature = 5550f;
+            if (sun.intensity < 1.35f) sun.intensity = 1.35f;
         }
 
         Scene active = SceneManager.GetActiveScene();
-        if (active.IsValid() && active.name.IndexOf("Game", StringComparison.OrdinalIgnoreCase) >= 0 && !RenderSettings.fog)
+        if (active.IsValid() && active.name.IndexOf("Game", StringComparison.OrdinalIgnoreCase) >= 0)
         {
+            // Lower ambient fill is deliberate: the original screenshot was almost uniformly lit.
+            // Directional light and SSAO now have enough contrast to read clearly on voxel faces.
+            RenderSettings.ambientIntensity = 0.58f;
+            RenderSettings.reflectionIntensity = 0.72f;
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.ExponentialSquared;
-            RenderSettings.fogDensity = 0.0032f;
-            RenderSettings.fogColor = Color.Lerp(new Color(0.46f, 0.57f, 0.68f), RenderSettings.ambientSkyColor, 0.35f);
+            RenderSettings.fogDensity = 0.00235f;
+            RenderSettings.fogColor = Color.Lerp(new Color(0.42f, 0.55f, 0.68f), RenderSettings.ambientSkyColor, 0.25f);
         }
     }
 
@@ -104,23 +121,31 @@ public sealed class CinematicLightingBootstrap : MonoBehaviour
         volume.profile = profile;
 
         Bloom bloom = profile.Add<Bloom>(true);
-        bloom.intensity.Override(0.22f);
-        bloom.threshold.Override(1.05f);
-        bloom.scatter.Override(0.62f);
+        bloom.intensity.Override(0.42f);
+        bloom.threshold.Override(0.86f);
+        bloom.scatter.Override(0.72f);
+        bloom.clamp.Override(20f);
 
         Tonemapping tonemapping = profile.Add<Tonemapping>(true);
         tonemapping.mode.Override(TonemappingMode.ACES);
 
         ColorAdjustments color = profile.Add<ColorAdjustments>(true);
-        color.postExposure.Override(0.05f);
-        color.contrast.Override(7f);
-        color.saturation.Override(4f);
+        color.postExposure.Override(0.08f);
+        color.contrast.Override(14f);
+        color.saturation.Override(5f);
+        color.colorFilter.Override(new Color(1.0f, 0.985f, 0.955f, 1f));
 
         WhiteBalance whiteBalance = profile.Add<WhiteBalance>(true);
-        whiteBalance.temperature.Override(3f);
+        whiteBalance.temperature.Override(5f);
+        whiteBalance.tint.Override(1f);
 
         Vignette vignette = profile.Add<Vignette>(true);
-        vignette.intensity.Override(0.12f);
-        vignette.smoothness.Override(0.45f);
+        vignette.intensity.Override(0.09f);
+        vignette.smoothness.Override(0.55f);
+
+        FilmGrain grain = profile.Add<FilmGrain>(true);
+        grain.type.Override(FilmGrainLookup.Thin1);
+        grain.intensity.Override(0.055f);
+        grain.response.Override(0.70f);
     }
 }
