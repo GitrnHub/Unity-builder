@@ -2,6 +2,10 @@ name: Import enhanced VoxelGame
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/import-pr-trigger
   push:
     branches: [main]
     paths:
@@ -18,6 +22,7 @@ jobs:
       - name: Checkout target repository
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Import upstream Unity project
@@ -38,12 +43,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p Assets/Resources/AIEnhancements
-          curl -L --fail --retry 3 \
-            https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf \
-            -o Assets/Resources/AIEnhancements/NotoSansCJKsc-Regular.otf
-          curl -L --fail --retry 3 \
-            https://raw.githubusercontent.com/notofonts/noto-cjk/main/LICENSE \
-            -o Assets/Resources/AIEnhancements/Noto-CJK-LICENSE.txt
+          curl -L --fail --retry 3 https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf -o Assets/Resources/AIEnhancements/NotoSansCJKsc-Regular.otf
+          curl -L --fail --retry 3 https://raw.githubusercontent.com/notofonts/noto-cjk/main/LICENSE -o Assets/Resources/AIEnhancements/Noto-CJK-LICENSE.txt
 
       - name: Add localization and cinematic lighting
         shell: bash
@@ -108,10 +109,7 @@ jobs:
                   SceneManager.sceneLoaded += OnSceneLoaded;
               }
 
-              private void Start()
-              {
-                  LocalizeAllLoadedScenes();
-              }
+              private void Start() => LocalizeAllLoadedScenes();
 
               private void Update()
               {
@@ -120,15 +118,8 @@ jobs:
                   LocalizeAllLoadedScenes();
               }
 
-              private void OnDestroy()
-              {
-                  SceneManager.sceneLoaded -= OnSceneLoaded;
-              }
-
-              private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-              {
-                  LocalizeScene(scene);
-              }
+              private void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
+              private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => LocalizeScene(scene);
 
               private void LoadFonts()
               {
@@ -138,7 +129,6 @@ jobs:
                       Debug.LogWarning("[ChineseUiLocalizer] Noto Sans CJK SC font was not found.");
                       return;
                   }
-
                   tmpFont = TMP_FontAsset.CreateFontAsset(legacyFont);
                   if (tmpFont != null)
                   {
@@ -168,7 +158,6 @@ jobs:
                           if (tmpFont != null && tmpTexts[j].font != tmpFont) tmpTexts[j].font = tmpFont;
                           tmpTexts[j].text = Translate(tmpTexts[j].text);
                       }
-
                       Text[] legacyTexts = roots[i].GetComponentsInChildren<Text>(true);
                       for (int j = 0; j < legacyTexts.Length; j++)
                       {
@@ -198,8 +187,6 @@ jobs:
 
           public sealed class CinematicLightingBootstrap : MonoBehaviour
           {
-              private Volume globalVolume;
-
               [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
               private static void Bootstrap()
               {
@@ -219,18 +206,11 @@ jobs:
               private void Start()
               {
                   StartCoroutine(ApplyDelayed());
-                  InvokeRepeating("RefreshDynamicScene", 2f, 2f);
+                  InvokeRepeating(nameof(RefreshDynamicScene), 2f, 2f);
               }
 
-              private void OnDestroy()
-              {
-                  SceneManager.sceneLoaded -= OnSceneLoaded;
-              }
-
-              private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-              {
-                  StartCoroutine(ApplyDelayed());
-              }
+              private void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
+              private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => StartCoroutine(ApplyDelayed());
 
               private IEnumerator ApplyDelayed()
               {
@@ -244,7 +224,7 @@ jobs:
                   string[] names = QualitySettings.names;
                   for (int i = 0; i < names.Length; i++)
                   {
-                      if (names[i].IndexOf("High Fidelity", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                      if (names[i].IndexOf("High Fidelity", StringComparison.OrdinalIgnoreCase) >= 0)
                       {
                           if (QualitySettings.GetQualityLevel() != i) QualitySettings.SetQualityLevel(i, true);
                           break;
@@ -252,14 +232,7 @@ jobs:
                   }
               }
 
-              private void RefreshDynamicScene()
-              {
-                  ConfigureCameras();
-                  ConfigureSunAndShadows();
-                  ConfigureAtmosphere();
-              }
-
-              private static void ConfigureCameras()
+              private static void RefreshDynamicScene()
               {
                   Camera[] cameras = FindObjectsOfType<Camera>(true);
                   for (int i = 0; i < cameras.Length; i++)
@@ -268,40 +241,29 @@ jobs:
                       UniversalAdditionalCameraData data = cameras[i].GetComponent<UniversalAdditionalCameraData>();
                       if (data != null) data.renderPostProcessing = true;
                   }
-              }
 
-              private static void ConfigureSunAndShadows()
-              {
                   Light[] lights = FindObjectsOfType<Light>(true);
                   Light sun = RenderSettings.sun;
                   for (int i = 0; i < lights.Length; i++)
+                      if (lights[i].type == LightType.Directional && (sun == null || lights[i].intensity > sun.intensity)) sun = lights[i];
+                  if (sun != null)
                   {
-                      if (lights[i].type != LightType.Directional) continue;
-                      if (sun == null || lights[i].intensity > sun.intensity) sun = lights[i];
+                      RenderSettings.sun = sun;
+                      sun.shadows = LightShadows.Soft;
+                      sun.shadowStrength = 0.92f;
+                      sun.shadowResolution = LightShadowResolution.VeryHigh;
+                      sun.shadowBias = 0.035f;
+                      sun.shadowNormalBias = 0.25f;
+                      if (sun.intensity < 1.05f) sun.intensity = 1.05f;
                   }
 
-                  if (sun == null) return;
-                  RenderSettings.sun = sun;
-                  sun.shadows = LightShadows.Soft;
-                  sun.shadowStrength = 0.92f;
-                  sun.shadowResolution = UnityEngine.Rendering.LightShadowResolution.VeryHigh;
-                  sun.shadowBias = 0.035f;
-                  sun.shadowNormalBias = 0.25f;
-                  if (sun.intensity < 1.05f) sun.intensity = 1.05f;
-              }
-
-              private static void ConfigureAtmosphere()
-              {
                   Scene active = SceneManager.GetActiveScene();
-                  if (!active.IsValid() || active.name.IndexOf("Game", System.StringComparison.OrdinalIgnoreCase) < 0) return;
-
-                  if (!RenderSettings.fog)
+                  if (active.IsValid() && active.name.IndexOf("Game", StringComparison.OrdinalIgnoreCase) >= 0 && !RenderSettings.fog)
                   {
                       RenderSettings.fog = true;
                       RenderSettings.fogMode = FogMode.ExponentialSquared;
                       RenderSettings.fogDensity = 0.0032f;
-                      Color ambient = RenderSettings.ambientSkyColor;
-                      RenderSettings.fogColor = Color.Lerp(new Color(0.46f, 0.57f, 0.68f), ambient, 0.35f);
+                      RenderSettings.fogColor = Color.Lerp(new Color(0.46f, 0.57f, 0.68f), RenderSettings.ambientSkyColor, 0.35f);
                   }
               }
 
@@ -309,31 +271,25 @@ jobs:
               {
                   GameObject volumeObject = new GameObject("[AI] Global Cinematic Volume");
                   volumeObject.transform.SetParent(transform, false);
-                  globalVolume = volumeObject.AddComponent<Volume>();
-                  globalVolume.isGlobal = true;
-                  globalVolume.priority = 1000f;
-
+                  Volume volume = volumeObject.AddComponent<Volume>();
+                  volume.isGlobal = true;
+                  volume.priority = 1000f;
                   VolumeProfile profile = ScriptableObject.CreateInstance<VolumeProfile>();
                   profile.name = "AI Cinematic Runtime Profile";
-                  globalVolume.profile = profile;
+                  volume.profile = profile;
 
                   Bloom bloom = profile.Add<Bloom>(true);
                   bloom.intensity.Override(0.22f);
                   bloom.threshold.Override(1.05f);
                   bloom.scatter.Override(0.62f);
-
                   Tonemapping tonemapping = profile.Add<Tonemapping>(true);
                   tonemapping.mode.Override(TonemappingMode.ACES);
-
                   ColorAdjustments color = profile.Add<ColorAdjustments>(true);
                   color.postExposure.Override(0.05f);
                   color.contrast.Override(7f);
                   color.saturation.Override(4f);
-
-                  WhiteBalance whiteBalance = profile.Add<WhiteBalance>(true);
-                  whiteBalance.temperature.Override(3f);
-                  whiteBalance.tint.Override(0f);
-
+                  WhiteBalance wb = profile.Add<WhiteBalance>(true);
+                  wb.temperature.Override(3f);
                   Vignette vignette = profile.Add<Vignette>(true);
                   vignette.intensity.Override(0.12f);
                   vignette.smoothness.Override(0.45f);
@@ -367,113 +323,69 @@ jobs:
               private void Start()
               {
                   Shader shader = Resources.Load<Shader>("AIEnhancements/GodRayURP");
-                  if (shader == null)
-                  {
-                      Debug.LogWarning("[GodRayShafts] Shader missing; volumetric shafts disabled.");
-                      enabled = false;
-                      return;
-                  }
-
+                  if (shader == null) { enabled = false; return; }
                   material = new Material(shader);
-                  material.name = "AI God Ray Runtime Material";
                   material.SetColor("_Color", new Color(1f, 0.86f, 0.58f, 0.07f));
                   beamMesh = CreateCrossBeamMesh();
-                  CreateBeams();
-              }
-
-              private void LateUpdate()
-              {
-                  bool inGame = SceneManager.GetActiveScene().name.IndexOf("Game", System.StringComparison.OrdinalIgnoreCase) >= 0;
-                  if (beams == null) return;
-
-                  if (!inGame)
-                  {
-                      SetBeamsActive(false);
-                      return;
-                  }
-
-                  if (targetCamera == null || !targetCamera.isActiveAndEnabled) targetCamera = Camera.main;
-                  if (targetCamera == null) targetCamera = FindObjectOfType<Camera>();
-                  if (sun == null || !sun.isActiveAndEnabled) sun = FindSun();
-                  if (targetCamera == null || sun == null)
-                  {
-                      SetBeamsActive(false);
-                      return;
-                  }
-
-                  SetBeamsActive(true);
-                  Vector3 rayDirection = -sun.transform.forward.normalized;
-                  Quaternion rotation = Quaternion.FromToRotation(Vector3.down, rayDirection);
-                  Vector3 center = targetCamera.transform.position;
-
-                  for (int i = 0; i < beams.Length; i++)
-                  {
-                      float angle = (i / (float)beams.Length) * Mathf.PI * 2f + 0.37f;
-                      float radius = 12f + (i % 4) * 6.5f;
-                      float width = 2.6f + (i % 3) * 1.2f;
-                      float height = 28f + (i % 5) * 4f;
-                      Vector3 offset = new Vector3(Mathf.Cos(angle) * radius, height, Mathf.Sin(angle) * radius);
-                      beams[i].transform.position = center + offset;
-                      beams[i].transform.rotation = rotation;
-                      beams[i].transform.localScale = new Vector3(width, 72f, width);
-                  }
-              }
-
-              private void CreateBeams()
-              {
                   beams = new GameObject[BeamCount];
                   for (int i = 0; i < BeamCount; i++)
                   {
                       GameObject go = new GameObject("GodRay_" + i);
                       go.transform.SetParent(transform, false);
-                      MeshFilter filter = go.AddComponent<MeshFilter>();
-                      filter.sharedMesh = beamMesh;
-                      MeshRenderer renderer = go.AddComponent<MeshRenderer>();
-                      renderer.sharedMaterial = material;
-                      renderer.shadowCastingMode = ShadowCastingMode.Off;
-                      renderer.receiveShadows = false;
-                      renderer.lightProbeUsage = LightProbeUsage.Off;
-                      renderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
+                      go.AddComponent<MeshFilter>().sharedMesh = beamMesh;
+                      MeshRenderer r = go.AddComponent<MeshRenderer>();
+                      r.sharedMaterial = material;
+                      r.shadowCastingMode = ShadowCastingMode.Off;
+                      r.receiveShadows = false;
                       beams[i] = go;
                   }
               }
 
-              private void SetBeamsActive(bool active)
+              private void LateUpdate()
               {
+                  if (beams == null) return;
+                  bool inGame = SceneManager.GetActiveScene().name.IndexOf("Game", System.StringComparison.OrdinalIgnoreCase) >= 0;
+                  if (!inGame) { SetActive(false); return; }
+                  if (targetCamera == null || !targetCamera.isActiveAndEnabled) targetCamera = Camera.main;
+                  if (targetCamera == null) targetCamera = FindObjectOfType<Camera>();
+                  if (sun == null || !sun.isActiveAndEnabled) sun = FindSun();
+                  if (targetCamera == null || sun == null) { SetActive(false); return; }
+                  SetActive(true);
+                  Quaternion rot = Quaternion.FromToRotation(Vector3.down, -sun.transform.forward.normalized);
+                  Vector3 center = targetCamera.transform.position;
                   for (int i = 0; i < beams.Length; i++)
-                      if (beams[i] != null && beams[i].activeSelf != active) beams[i].SetActive(active);
+                  {
+                      float angle = i / (float)beams.Length * Mathf.PI * 2f + 0.37f;
+                      float radius = 12f + (i % 4) * 6.5f;
+                      float width = 2.6f + (i % 3) * 1.2f;
+                      float height = 28f + (i % 5) * 4f;
+                      beams[i].transform.position = center + new Vector3(Mathf.Cos(angle) * radius, height, Mathf.Sin(angle) * radius);
+                      beams[i].transform.rotation = rot;
+                      beams[i].transform.localScale = new Vector3(width, 72f, width);
+                  }
+              }
+
+              private void SetActive(bool value)
+              {
+                  for (int i = 0; i < beams.Length; i++) if (beams[i] != null && beams[i].activeSelf != value) beams[i].SetActive(value);
               }
 
               private static Light FindSun()
               {
                   if (RenderSettings.sun != null) return RenderSettings.sun;
                   Light[] lights = FindObjectsOfType<Light>(true);
-                  Light best = null;
-                  for (int i = 0; i < lights.Length; i++)
-                  {
-                      if (lights[i].type != LightType.Directional) continue;
-                      if (best == null || lights[i].intensity > best.intensity) best = lights[i];
-                  }
-                  return best;
+                  for (int i = 0; i < lights.Length; i++) if (lights[i].type == LightType.Directional) return lights[i];
+                  return null;
               }
 
               private static Mesh CreateCrossBeamMesh()
               {
                   Mesh mesh = new Mesh();
-                  mesh.name = "AI Cross Volumetric Beam";
-                  mesh.vertices = new[]
-                  {
-                      new Vector3(-0.22f, 0f, 0f), new Vector3(0.22f, 0f, 0f),
-                      new Vector3(-0.65f, -1f, 0f), new Vector3(0.65f, -1f, 0f),
-                      new Vector3(0f, 0f, -0.22f), new Vector3(0f, 0f, 0.22f),
-                      new Vector3(0f, -1f, -0.65f), new Vector3(0f, -1f, 0.65f)
-                  };
-                  mesh.uv = new[]
-                  {
-                      new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(0f, 1f), new Vector2(1f, 1f),
-                      new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(0f, 1f), new Vector2(1f, 1f)
-                  };
-                  mesh.triangles = new[] {0, 2, 1, 1, 2, 3, 4, 6, 5, 5, 6, 7};
+                  mesh.vertices = new[] {
+                      new Vector3(-.22f,0,0), new Vector3(.22f,0,0), new Vector3(-.65f,-1,0), new Vector3(.65f,-1,0),
+                      new Vector3(0,0,-.22f), new Vector3(0,0,.22f), new Vector3(0,-1,-.65f), new Vector3(0,-1,.65f) };
+                  mesh.uv = new[] { new Vector2(0,0),new Vector2(1,0),new Vector2(0,1),new Vector2(1,1),new Vector2(0,0),new Vector2(1,0),new Vector2(0,1),new Vector2(1,1) };
+                  mesh.triangles = new[] {0,2,1,1,2,3,4,6,5,5,6,7};
                   mesh.RecalculateBounds();
                   return mesh;
               }
@@ -483,10 +395,7 @@ jobs:
           cat > Assets/Resources/AIEnhancements/GodRayURP.shader <<'SHADER'
           Shader "AI/GodRayURP"
           {
-              Properties
-              {
-                  _Color("Ray Color", Color) = (1, 0.86, 0.58, 0.07)
-              }
+              Properties { _Color("Ray Color", Color) = (1,0.86,0.58,0.07) }
               SubShader
               {
                   Tags { "RenderType"="Transparent" "Queue"="Transparent+20" "RenderPipeline"="UniversalPipeline" }
@@ -494,52 +403,17 @@ jobs:
                   ZWrite Off
                   ZTest LEqual
                   Cull Off
-
                   Pass
                   {
-                      Name "GodRay"
                       HLSLPROGRAM
                       #pragma vertex Vert
                       #pragma fragment Frag
                       #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-
-                      struct Attributes
-                      {
-                          float4 positionOS : POSITION;
-                          float2 uv : TEXCOORD0;
-                      };
-
-                      struct Varyings
-                      {
-                          float4 positionHCS : SV_POSITION;
-                          float2 uv : TEXCOORD0;
-                          float3 positionWS : TEXCOORD1;
-                      };
-
-                      CBUFFER_START(UnityPerMaterial)
-                          half4 _Color;
-                      CBUFFER_END
-
-                      Varyings Vert(Attributes input)
-                      {
-                          Varyings output;
-                          VertexPositionInputs positions = GetVertexPositionInputs(input.positionOS.xyz);
-                          output.positionHCS = positions.positionCS;
-                          output.positionWS = positions.positionWS;
-                          output.uv = input.uv;
-                          return output;
-                      }
-
-                      half4 Frag(Varyings input) : SV_Target
-                      {
-                          float edge = saturate(1.0 - abs(input.uv.x * 2.0 - 1.0));
-                          edge = edge * edge * (3.0 - 2.0 * edge);
-                          float startFade = smoothstep(0.0, 0.08, input.uv.y);
-                          float endFade = 1.0 - smoothstep(0.72, 1.0, input.uv.y);
-                          float noise = 0.84 + 0.16 * sin(dot(input.positionWS.xz, float2(0.13, 0.19)) + _Time.y * 0.12);
-                          half alpha = (half)(edge * startFade * endFade * noise) * _Color.a;
-                          return half4(_Color.rgb, alpha);
-                      }
+                      struct Attributes { float4 positionOS:POSITION; float2 uv:TEXCOORD0; };
+                      struct Varyings { float4 positionHCS:SV_POSITION; float2 uv:TEXCOORD0; float3 positionWS:TEXCOORD1; };
+                      CBUFFER_START(UnityPerMaterial) half4 _Color; CBUFFER_END
+                      Varyings Vert(Attributes i) { Varyings o; VertexPositionInputs p=GetVertexPositionInputs(i.positionOS.xyz); o.positionHCS=p.positionCS; o.positionWS=p.positionWS; o.uv=i.uv; return o; }
+                      half4 Frag(Varyings i):SV_Target { float e=saturate(1-abs(i.uv.x*2-1)); e=e*e*(3-2*e); float a=e*smoothstep(0,.08,i.uv.y)*(1-smoothstep(.72,1,i.uv.y)); float n=.84+.16*sin(dot(i.positionWS.xz,float2(.13,.19))+_Time.y*.12); return half4(_Color.rgb,(half)(a*n)*_Color.a); }
                       ENDHLSL
                   }
               }
@@ -560,94 +434,40 @@ jobs:
                       if (names[i].IndexOf("High Fidelity", System.StringComparison.OrdinalIgnoreCase) >= 0)
                       {
                           QualitySettings.SetQualityLevel(i, true);
-                          Debug.Log("[CloudProjectBootstrap] Windows build set to High Fidelity quality: " + names[i]);
+                          Debug.Log("[CloudProjectBootstrap] High Fidelity quality selected.");
                           return;
                       }
                   }
-                  Debug.LogWarning("[CloudProjectBootstrap] High Fidelity quality level was not found; using current quality.");
               }
           }
           CS
 
-      - name: Make Chinese UI persistent and enable High Fidelity URP
+      - name: Enable High Fidelity and translate serialized UI
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import re
-
-          q = Path('ProjectSettings/QualitySettings.asset')
-          text = q.read_text(encoding='utf-8')
-          text = text.replace('  m_CurrentQuality: 1', '  m_CurrentQuality: 2', 1)
-          text = text.replace('    Standalone: 1', '    Standalone: 2', 1)
-          q.write_text(text, encoding='utf-8')
-
-          urp = Path('Assets/Settings/URP-HighFidelity.asset')
-          text = urp.read_text(encoding='utf-8')
-          text = text.replace('  m_RequireDepthTexture: 0', '  m_RequireDepthTexture: 1', 1)
-          urp.write_text(text, encoding='utf-8')
-
-          renderer = Path('Assets/Settings/URP-HighFidelity-Renderer.asset')
-          text = renderer.read_text(encoding='utf-8')
-          text = text.replace('    Intensity: 0.5', '    Intensity: 0.72', 1)
-          text = text.replace('    Radius: 0.25', '    Radius: 0.35', 1)
-          renderer.write_text(text, encoding='utf-8')
-
-          translations = {
-              'Play':'开始游戏','Start':'开始','Start Game':'开始游戏','New Game':'新游戏',
-              'Continue':'继续','Resume':'继续游戏','Main Menu':'主菜单','Menu':'菜单',
-              'Settings':'设置','Options':'选项','Credits':'制作人员','Exit':'退出','Quit':'退出',
-              'Quit Game':'退出游戏','Back':'返回','Apply':'应用','Save':'保存','Load':'读取',
-              'Cancel':'取消','Confirm':'确认','Graphics':'画面','Video':'画面','Audio':'音频',
-              'Controls':'控制','Language':'语言','Quality':'画质','Resolution':'分辨率',
-              'Fullscreen':'全屏','Windowed':'窗口模式','VSync':'垂直同步','Volume':'音量',
-              'Master Volume':'主音量','Music':'音乐','Sound':'声音','SFX':'音效',
-              'Sensitivity':'灵敏度','Mouse Sensitivity':'鼠标灵敏度','Field of View':'视野',
-              'FOV':'视野','Render Distance':'渲染距离','View Distance':'视距','Brightness':'亮度',
-              'Inventory':'物品栏','Crafting':'合成','Seed':'种子','World':'世界',
-              'Create World':'创建世界','Load World':'加载世界','Singleplayer':'单人游戏',
-              'Multiplayer':'多人游戏','Generating...':'正在生成...','Loading...':'正在加载...'
-          }
-          rx = re.compile(r'^(\s*m_[Tt]ext:\s*)(.*)$')
-          changed = 0
-          for suffix in ('*.prefab','*.unity'):
-              for p in Path('Assets').rglob(suffix):
-                  try:
-                      lines = p.read_text(encoding='utf-8').splitlines(True)
-                  except UnicodeDecodeError:
-                      continue
-                  dirty = False
-                  out = []
+          q=Path('ProjectSettings/QualitySettings.asset'); t=q.read_text(); t=t.replace('  m_CurrentQuality: 1','  m_CurrentQuality: 2',1).replace('    Standalone: 1','    Standalone: 2',1); q.write_text(t)
+          p=Path('Assets/Settings/URP-HighFidelity.asset'); t=p.read_text(); t=t.replace('  m_RequireDepthTexture: 0','  m_RequireDepthTexture: 1',1); p.write_text(t)
+          p=Path('Assets/Settings/URP-HighFidelity-Renderer.asset'); t=p.read_text().replace('    Intensity: 0.5','    Intensity: 0.72',1).replace('    Radius: 0.25','    Radius: 0.35',1); p.write_text(t)
+          translations={'Play':'开始游戏','Start':'开始','Start Game':'开始游戏','New Game':'新游戏','Continue':'继续','Resume':'继续游戏','Main Menu':'主菜单','Menu':'菜单','Settings':'设置','Options':'选项','Credits':'制作人员','Exit':'退出','Quit':'退出','Quit Game':'退出游戏','Back':'返回','Apply':'应用','Save':'保存','Load':'读取','Cancel':'取消','Confirm':'确认','Graphics':'画面','Video':'画面','Audio':'音频','Controls':'控制','Language':'语言','Quality':'画质','Resolution':'分辨率','Fullscreen':'全屏','Windowed':'窗口模式','VSync':'垂直同步','Volume':'音量','Music':'音乐','Sound':'声音','SFX':'音效','Sensitivity':'灵敏度','Mouse Sensitivity':'鼠标灵敏度','Field of View':'视野','FOV':'视野','Render Distance':'渲染距离','View Distance':'视距','Inventory':'物品栏','Crafting':'合成','Seed':'种子','World':'世界','Create World':'创建世界','Load World':'加载世界','Singleplayer':'单人游戏','Multiplayer':'多人游戏','Generating...':'正在生成...','Loading...':'正在加载...'}
+          rx=re.compile(r'^(\s*m_[Tt]ext:\s*)(.*)$'); changed=0
+          for pat in ('*.prefab','*.unity'):
+              for f in Path('Assets').rglob(pat):
+                  try: lines=f.read_text(encoding='utf-8').splitlines(True)
+                  except UnicodeDecodeError: continue
+                  out=[]; dirty=False
                   for line in lines:
-                      raw = line.rstrip('\r\n')
-                      ending = line[len(raw):]
-                      m = rx.match(raw)
+                      raw=line.rstrip('\r\n'); ending=line[len(raw):]; m=rx.match(raw)
                       if m:
-                          value = m.group(2).strip()
-                          quote = value.startswith('"') and value.endswith('"')
-                          key = value[1:-1] if quote else value
+                          v=m.group(2).strip(); quoted=v.startswith('"') and v.endswith('"'); key=v[1:-1] if quoted else v
                           if key in translations:
-                              val = translations[key]
-                              if quote:
-                                  val = '"' + val + '"'
-                              line = m.group(1) + val + ending
-                              dirty = True
-                              changed += 1
+                              nv=translations[key]; nv='"'+nv+'"' if quoted else nv; line=m.group(1)+nv+ending; dirty=True; changed+=1
                       out.append(line)
-                  if dirty:
-                      p.write_text(''.join(out), encoding='utf-8')
-          Path('AI_MODIFICATIONS.md').write_text(
-              '# AI modification summary\n\n'
-              '- Base: savatkinv/VoxelGame (MIT)\n'
-              '- Standalone default quality changed to High Fidelity URP.\n'
-              '- High Fidelity uses HDR, 4x MSAA, soft realtime shadows, 4 cascades, 4096 shadow maps and SSAO.\n'
-              '- SSAO strengthened and depth texture enabled.\n'
-              '- Added runtime ACES tonemapping, Bloom, color grading, atmospheric fog and soft sun shadows.\n'
-              '- Added procedural URP god-ray shafts.\n'
-              '- Added Simplified Chinese UI runtime localization with Noto Sans CJK SC.\n'
-              '- Serialized UI labels translated: %d.\n' % changed,
-              encoding='utf-8')
-          print('Translated serialized UI labels:', changed)
+                  if dirty: f.write_text(''.join(out),encoding='utf-8')
+          Path('AI_MODIFICATIONS.md').write_text(f'# AI modification summary\n\n- Base: savatkinv/VoxelGame (MIT)\n- Standalone defaults to High Fidelity URP.\n- HDR, 4x MSAA, 4096 shadow maps, 4 cascades, soft shadows and SSAO enabled/strengthened.\n- Runtime ACES, Bloom, color grading, atmospheric fog and procedural god rays added.\n- Simplified Chinese UI localization and Noto Sans CJK SC added.\n- Serialized UI labels translated: {changed}.\n',encoding='utf-8')
+          print('Translated labels:',changed)
           PY
 
       - name: Commit imported project
@@ -657,6 +477,5 @@ jobs:
           git config user.name "OpenAI Vibe Builder"
           git config user.email "actions@users.noreply.github.com"
           git add -A
-          git status --short
           git commit -m "Replace demo with Chinese cinematic VoxelGame"
           git push origin HEAD:main
