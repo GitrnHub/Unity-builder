@@ -1,0 +1,58 @@
+name: Import enhanced VoxelGame v2
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/import-v2-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout target main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Import upstream VoxelGame project
+        shell: bash
+        run: |
+          set -euo pipefail
+          UPSTREAM="$RUNNER_TEMP/VoxelGame"
+          git clone --depth 1 https://github.com/savatkinv/VoxelGame.git "$UPSTREAM"
+          rsync -a --delete --exclude='.git/' --exclude='.github/' "$UPSTREAM/VoxelGame_UnityProject/" "$GITHUB_WORKSPACE/"
+          cp "$UPSTREAM/.gitignore" "$GITHUB_WORKSPACE/.gitignore"
+          cp "$UPSTREAM/LICENSE.txt" "$GITHUB_WORKSPACE/LICENSE.txt"
+          cp "$UPSTREAM/README.md" "$GITHUB_WORKSPACE/README_UPSTREAM.md"
+
+      - name: Install staged Chinese UI and cinematic URP enhancements
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p Assets/AIEnhancements/Runtime Assets/Editor Assets/Resources/AIEnhancements
+          cp .github/voxel-import/ChineseUiLocalizer.cs Assets/AIEnhancements/Runtime/ChineseUiLocalizer.cs
+          cp .github/voxel-import/CinematicLightingBootstrap.cs Assets/AIEnhancements/Runtime/CinematicLightingBootstrap.cs
+          cp .github/voxel-import/GodRayShafts.cs Assets/AIEnhancements/Runtime/GodRayShafts.cs
+          cp .github/voxel-import/GodRayURP.shader Assets/Resources/AIEnhancements/GodRayURP.shader
+          cp .github/voxel-import/CloudProjectBootstrap.cs Assets/Editor/CloudProjectBootstrap.cs
+          curl -L --fail --retry 3 https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf -o Assets/Resources/AIEnhancements/NotoSansCJKsc-Regular.otf
+          curl -L --fail --retry 3 https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/LICENSE -o Assets/Resources/AIEnhancements/Noto-CJK-LICENSE.txt
+          python3 .github/voxel-import/patch_project.py
+
+      - name: Replace main branch contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "OpenAI Vibe Builder"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git status --short
+          git commit -m "Replace demo with Chinese cinematic VoxelGame"
+          git push origin HEAD:main
