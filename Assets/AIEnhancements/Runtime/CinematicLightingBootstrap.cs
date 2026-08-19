@@ -51,8 +51,11 @@ public sealed class CinematicLightingBootstrap : MonoBehaviour
             }
         }
 
-        QualitySettings.shadows = ShadowQuality.All;
-        QualitySettings.shadowResolution = ShadowResolution.VeryHigh;
+        // URP also defines ShadowQuality/ShadowResolution enum names. Fully qualify the
+        // built-in UnityEngine enums expected by QualitySettings to keep Unity 2022.3
+        // batch compilation unambiguous.
+        QualitySettings.shadows = UnityEngine.ShadowQuality.All;
+        QualitySettings.shadowResolution = UnityEngine.ShadowResolution.VeryHigh;
         QualitySettings.shadowDistance = 150f;
         QualitySettings.shadowCascades = 4;
         QualitySettings.antiAliasing = 4;

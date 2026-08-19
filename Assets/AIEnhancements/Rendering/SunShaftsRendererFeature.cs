@@ -54,7 +54,6 @@ public sealed class SunShaftsRendererFeature : ScriptableRendererFeature
 
     private sealed class SunShaftsPass : ScriptableRenderPass
     {
-        private readonly ProfilingSampler profilingSampler = new ProfilingSampler("AI Screen Space Sun Shafts");
         private readonly Material material;
         private readonly SunShaftsSettings settings;
         private RTHandle cameraColorTarget;
@@ -63,6 +62,9 @@ public sealed class SunShaftsRendererFeature : ScriptableRendererFeature
         {
             this.material = material;
             this.settings = settings;
+            // ScriptableRenderPass already exposes profilingSampler. Assign the inherited
+            // sampler instead of hiding it with another field.
+            base.profilingSampler = new ProfilingSampler("AI Screen Space Sun Shafts");
             // Opaque color/depth are available here, while transparent objects can still
             // render on top of the atmospheric scattering afterwards.
             renderPassEvent = RenderPassEvent.BeforeRenderingTransparents;
