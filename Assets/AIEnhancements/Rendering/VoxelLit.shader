@@ -16,6 +16,7 @@ Shader "VoxelGame/AI Lit Voxel"
             "RenderType"="Opaque"
             "Queue"="Geometry"
             "RenderPipeline"="UniversalPipeline"
+            "UniversalMaterialType"="Lit"
         }
 
         Pass
@@ -33,6 +34,7 @@ Shader "VoxelGame/AI Lit Voxel"
             #pragma fragment LitFragment
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
+            #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
             #pragma multi_compile_fog
             #pragma multi_compile_instancing
 
@@ -101,23 +103,33 @@ Shader "VoxelGame/AI Lit Voxel"
                 float4 shadowCoord = TransformWorldToShadowCoord(input.positionWS);
                 Light mainLight = GetMainLight(shadowCoord);
 
+                half directAO = 1.0h;
+                half indirectAO = 1.0h;
+                #if defined(_SCREEN_SPACE_OCCLUSION)
+                    float2 normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionCS);
+                    AmbientOcclusionFactor aoFactor = GetScreenSpaceAmbientOcclusion(normalizedScreenSpaceUV);
+                    directAO = aoFactor.directAmbientOcclusion;
+                    indirectAO = aoFactor.indirectAmbientOcclusion;
+                #endif
+
                 half ndotl = saturate(dot(normalWS, mainLight.direction));
                 half shadow = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
 
-                // Keep the game's baked voxel AO as a subtle occlusion term instead of
-                // letting it replace real directional light and real-time shadow maps.
-                half bakedAO = lerp(0.58h, 1.0h, saturate(input.color.r));
-                half3 ambient = SampleSH(normalWS) * 0.48h;
-                half3 direct = mainLight.color * ndotl * shadow * 1.42h;
+                // Preserve the game's baked voxel AO, but combine it with URP SSAO and
+                // real-time cascaded shadows so creases, tree canopies and terraces have
+                // clearly readable depth.
+                half bakedAO = lerp(0.54h, 1.0h, saturate(input.color.r));
+                half3 ambient = SampleSH(normalWS) * (0.30h * indirectAO);
+                half3 direct = mainLight.color * ndotl * shadow * directAO * 1.72h;
 
-                // A restrained specular lobe gives wet stone/leaves a little shape without
-                // turning the pixel-art atlas into glossy plastic.
                 half3 halfDir = SafeNormalize(mainLight.direction + viewDirWS);
-                half spec = pow(saturate(dot(normalWS, halfDir)), 24.0h) * shadow * 0.075h;
+                half spec = pow(saturate(dot(normalWS, halfDir)), 28.0h) * shadow * directAO * 0.10h;
+                half rim = pow(1.0h - saturate(dot(normalWS, viewDirWS)), 3.0h) * 0.045h;
 
                 half3 albedo = tex.rgb * _BaseColor.rgb;
                 half3 color = albedo * (ambient + direct) * bakedAO;
                 color += mainLight.color * spec;
+                color += albedo * rim;
                 color = lerp(color, _FadeColor.rgb, saturate(_FadeIntencity));
                 color = MixFog(color, input.fogFactor);
 
@@ -256,6 +268,83 @@ Shader "VoxelGame/AI Lit Voxel"
                 UNITY_SETUP_INSTANCE_ID(input);
                 clip(SAMPLE_TEXTURE2D(_MainTexture, sampler_MainTexture, input.uv).a - _Cutoff);
                 return 0;
+            }
+            ENDHLSL
+        }
+
+        // SSAO in Depth-Normals mode needs an explicit normal prepass. The previous
+        // custom voxel shader had no DepthNormals pass, so the renderer feature could
+        // be enabled while the voxel terrain contributed no usable normals.
+        Pass
+        {
+            Name "DepthNormalsOnly"
+            Tags { "LightMode"="DepthNormalsOnly" }
+            Cull Back
+            ZWrite On
+
+            HLSLPROGRAM
+            #pragma target 3.5
+            #pragma vertex DepthNormalsVertex
+            #pragma fragment DepthNormalsFragment
+            #pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
+            #pragma multi_compile_instancing
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+
+            TEXTURE2D(_MainTexture);
+            SAMPLER(sampler_MainTexture);
+            CBUFFER_START(UnityPerMaterial)
+                float4 _MainTexture_ST;
+                half4 _BaseColor;
+                half4 _FadeColor;
+                half _FadeIntencity;
+                half _Cutoff;
+            CBUFFER_END
+
+            struct Attributes
+            {
+                float4 positionOS : POSITION;
+                float3 normalOS : NORMAL;
+                float2 uv : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
+
+            struct Varyings
+            {
+                float4 positionCS : SV_POSITION;
+                half3 normalWS : TEXCOORD0;
+                float2 uv : TEXCOORD1;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO
+            };
+
+            Varyings DepthNormalsVertex(Attributes input)
+            {
+                Varyings output;
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_TRANSFER_INSTANCE_ID(input, output);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
+                output.positionCS = TransformObjectToHClip(input.positionOS.xyz);
+                output.normalWS = TransformObjectToWorldNormal(input.normalOS);
+                output.uv = TRANSFORM_TEX(input.uv, _MainTexture);
+                return output;
+            }
+
+            half4 DepthNormalsFragment(Varyings input) : SV_Target
+            {
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                clip(SAMPLE_TEXTURE2D(_MainTexture, sampler_MainTexture, input.uv).a - _Cutoff);
+
+                float3 normalWS = NormalizeNormalPerPixel(input.normalWS);
+                #if defined(_GBUFFER_NORMALS_OCT)
+                    float2 octNormalWS = PackNormalOctQuadEncode(normalWS);
+                    float2 remappedOctNormalWS = saturate(octNormalWS * 0.5 + 0.5);
+                    half3 packedNormalWS = PackFloat2To888(remappedOctNormalWS);
+                    return half4(packedNormalWS, 0.0h);
+                #else
+                    return half4(normalWS, 0.0h);
+                #endif
             }
             ENDHLSL
         }

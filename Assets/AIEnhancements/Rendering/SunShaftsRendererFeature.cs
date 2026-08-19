@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
+using UnityEngine.Rendering.RenderGraphModule.Util;
 using UnityEngine.Rendering.Universal;
 
 public sealed class SunShaftsRendererFeature : ScriptableRendererFeature
@@ -32,17 +34,23 @@ public sealed class SunShaftsRendererFeature : ScriptableRendererFeature
         if (renderPass == null || material == null || renderingData.cameraData.cameraType != CameraType.Game)
             return;
 
+        // Depth is required by the shader to distinguish open sky from occluders.
+        // The pass itself requests an intermediate color target for the RenderGraph blit.
+        renderPass.ConfigureInput(ScriptableRenderPassInput.Depth);
         renderer.EnqueuePass(renderPass);
     }
 
+#if URP_COMPATIBILITY_MODE
+#pragma warning disable 618, 672
     public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
     {
         if (renderPass == null || material == null || renderingData.cameraData.cameraType != CameraType.Game)
             return;
 
-        renderPass.ConfigureInput(ScriptableRenderPassInput.Color | ScriptableRenderPassInput.Depth);
-        renderPass.SetTarget(renderer.cameraColorTargetHandle);
+        renderPass.SetCompatibilityTarget(renderer.cameraColorTargetHandle);
     }
+#pragma warning restore 618, 672
+#endif
 
     protected override void Dispose(bool disposing)
     {
@@ -56,44 +64,31 @@ public sealed class SunShaftsRendererFeature : ScriptableRendererFeature
     {
         private readonly Material material;
         private readonly SunShaftsSettings settings;
+
+#if URP_COMPATIBILITY_MODE
         private RTHandle cameraColorTarget;
         private RTHandle temporaryColor;
+#endif
 
         public SunShaftsPass(Material material, SunShaftsSettings settings)
         {
             this.material = material;
             this.settings = settings;
-            base.profilingSampler = new ProfilingSampler("AI Screen Space Sun Shafts");
-            renderPassEvent = RenderPassEvent.BeforeRenderingTransparents;
+            renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+            requiresIntermediateTexture = true;
         }
 
-        public void SetTarget(RTHandle colorHandle) => cameraColorTarget = colorHandle;
-
-        public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+        private bool UpdateMaterial(Camera camera)
         {
-            if (cameraColorTarget == null) return;
+            if (material == null || camera == null)
+                return false;
 
-            RenderTextureDescriptor descriptor = renderingData.cameraData.cameraTargetDescriptor;
-            descriptor.depthBufferBits = 0;
-            descriptor.msaaSamples = 1;
-            RenderingUtils.ReAllocateIfNeeded(
-                ref temporaryColor,
-                descriptor,
-                FilterMode.Bilinear,
-                TextureWrapMode.Clamp,
-                name: "_AISunShaftsTemp");
-            ConfigureTarget(cameraColorTarget);
-        }
-
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
-        {
-            if (material == null || cameraColorTarget == null || temporaryColor == null)
-                return;
-
-            Camera camera = renderingData.cameraData.camera;
             Light sun = RenderSettings.sun;
-            if (camera == null || sun == null || sun.type != LightType.Directional)
-                return;
+            if (sun == null || sun.type != LightType.Directional)
+            {
+                material.SetFloat("_Intensity", 0f);
+                return true;
+            }
 
             Vector3 apparentSunWorld = camera.transform.position - sun.transform.forward * 10000f;
             Vector3 viewport = camera.WorldToViewportPoint(apparentSunWorld);
@@ -111,26 +106,90 @@ public sealed class SunShaftsRendererFeature : ScriptableRendererFeature
             material.SetFloat("_Decay", settings.decay);
             material.SetFloat("_Weight", settings.weight);
             material.SetFloat("_Exposure", settings.exposure);
+            return true;
+        }
 
-            CommandBuffer cmd = CommandBufferPool.Get();
-            using (new ProfilingScope(cmd, profilingSampler))
+        public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
+        {
+            if (material == null)
+                return;
+
+            UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
+            UniversalCameraData cameraData = frameData.Get<UniversalCameraData>();
+
+            if (cameraData.camera == null || cameraData.camera.cameraType != CameraType.Game)
+                return;
+
+            if (resourceData.isActiveTargetBackBuffer)
             {
-                // Avoid an in-place source/destination blit. The effect samples the opaque
-                // color and depth textures, writes a temporary target, then composites it
-                // back to the camera color buffer.
-                Blitter.BlitCameraTexture(cmd, cameraColorTarget, temporaryColor, material, 0);
-                Blitter.BlitCameraTexture(cmd, temporaryColor, cameraColorTarget);
+                Debug.LogWarning("AI Sun Shafts skipped because the active color target is the back buffer.");
+                return;
             }
 
+            if (!UpdateMaterial(cameraData.camera))
+                return;
+
+            TextureHandle source = resourceData.activeColorTexture;
+            if (!source.IsValid())
+                return;
+
+            TextureDesc destinationDesc = renderGraph.GetTextureDesc(source);
+            destinationDesc.name = "CameraColor-AI-SunShafts";
+            destinationDesc.clearBuffer = false;
+            TextureHandle destination = renderGraph.CreateTexture(destinationDesc);
+
+            RenderGraphUtils.BlitMaterialParameters blitParameters =
+                new RenderGraphUtils.BlitMaterialParameters(source, destination, material, 0);
+            renderGraph.AddBlitPass(blitParameters, "AI Screen Space Sun Shafts");
+
+            // Make the blitted texture the camera color for all following passes. This is
+            // the Unity 6 / URP 17 RenderGraph pattern and avoids touching the now-removed
+            // ScriptableRenderer camera target API.
+            resourceData.cameraColor = destination;
+        }
+
+#if URP_COMPATIBILITY_MODE
+#pragma warning disable 618, 672
+        public void SetCompatibilityTarget(RTHandle colorHandle) => cameraColorTarget = colorHandle;
+
+        public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+        {
+            if (cameraColorTarget == null)
+                return;
+
+            RenderTextureDescriptor descriptor = renderingData.cameraData.cameraTargetDescriptor;
+            descriptor.depthBufferBits = 0;
+            descriptor.msaaSamples = 1;
+            RenderingUtils.ReAllocateIfNeeded(
+                ref temporaryColor,
+                descriptor,
+                FilterMode.Bilinear,
+                TextureWrapMode.Clamp,
+                name: "_AISunShaftsTemp");
+            ConfigureTarget(cameraColorTarget);
+        }
+
+        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        {
+            if (cameraColorTarget == null || temporaryColor == null || !UpdateMaterial(renderingData.cameraData.camera))
+                return;
+
+            CommandBuffer cmd = CommandBufferPool.Get();
+            Blitter.BlitCameraTexture(cmd, cameraColorTarget, temporaryColor, material, 0);
+            Blitter.BlitCameraTexture(cmd, temporaryColor, cameraColorTarget);
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
             CommandBufferPool.Release(cmd);
         }
+#pragma warning restore 618, 672
+#endif
 
         public void Dispose()
         {
+#if URP_COMPATIBILITY_MODE
             temporaryColor?.Release();
             temporaryColor = null;
+#endif
         }
     }
 }
