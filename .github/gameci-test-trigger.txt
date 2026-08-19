@@ -1,0 +1,1 @@
+GameCI lighting validation trigger for the persistent URP voxel-lighting build.
