@@ -19,9 +19,6 @@ Shader "Hidden/AI/SunShafts"
             #pragma vertex Vert
             #pragma fragment Frag
 
-            TEXTURE2D_X(_CameraOpaqueTexture);
-            SAMPLER(sampler_CameraOpaqueTexture);
-
             float4 _SunViewport;
             half4 _SunColor;
             float _Intensity;
@@ -36,7 +33,7 @@ Shader "Hidden/AI/SunShafts"
 
                 const int kSamples = 32;
                 float2 uv = input.texcoord;
-                half4 baseColor = SAMPLE_TEXTURE2D_X(_CameraOpaqueTexture, sampler_CameraOpaqueTexture, uv);
+                half4 baseColor = SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv);
 
                 float2 toSun = _SunViewport.xy - uv;
                 float2 stepUv = toSun * (_Density / (float)kSamples);
