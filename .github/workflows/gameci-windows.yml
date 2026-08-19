@@ -1,0 +1,64 @@
+name: GameCI Windows Build
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gameci-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Restore Unity Library cache
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ runner.os }}-2022.3.24f1-StandaloneWindows64-${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: |
+            Library-${{ runner.os }}-2022.3.24f1-StandaloneWindows64-
+
+      - name: Validate Unity Personal secrets
+        shell: bash
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: |
+          missing=0
+          if [ -z "$UNITY_LICENSE" ]; then echo "::error::Missing repository secret UNITY_LICENSE"; missing=1; fi
+          if [ -z "$UNITY_EMAIL" ]; then echo "::error::Missing repository secret UNITY_EMAIL"; missing=1; fi
+          if [ -z "$UNITY_PASSWORD" ]; then echo "::error::Missing repository secret UNITY_PASSWORD"; missing=1; fi
+          exit "$missing"
+
+      - name: Build Windows x64 with GameCI
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 2022.3.24f1
+          targetPlatform: StandaloneWindows64
+          buildName: VoxelGame
+          buildsPath: build
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VoxelGame-Windows64
+          path: build/StandaloneWindows64
+          if-no-files-found: error
